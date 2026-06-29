@@ -7,9 +7,9 @@ import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Happy Birthday, My Best Friend ❤️" },
-      { name: "description", content: "A heartfelt birthday letter — a journey through a friendship that began in 5th class and never let go." },
-      { property: "og:title", content: "Happy Birthday, My Best Friend ❤️" },
+      { title: "Happy Birthday, Devagya ❤️" },
+      { name: "description", content: "A heartfelt birthday letter from Lakshay to Devagya — a journey through a friendship that began in 5th class and never let go." },
+      { property: "og:title", content: "Happy Birthday, Devagya ❤️" },
       { property: "og:description", content: "From two kids in 5th class to a friendship that survived every phase of life." },
     ],
   }),
@@ -115,7 +115,7 @@ function BirthdayPage() {
             transition={{ duration: 1 }}
             className="mb-4 font-[family-name:var(--font-script)] text-3xl text-[color:var(--rose)] sm:text-4xl"
           >
-            a letter for you
+            a letter for devagya
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
@@ -124,7 +124,7 @@ function BirthdayPage() {
             className="text-5xl leading-[1.05] sm:text-6xl md:text-7xl"
           >
             <span className="block">Happy Birthday,</span>
-            <span className="text-gradient block">My Best Friend</span>
+            <span className="text-gradient block">Devagya</span>
             <motion.span
               aria-hidden
               className="inline-block heart-beat"
@@ -365,7 +365,7 @@ function FinalSection() {
     "Thank you for staying, supporting me, believing in me, and being my friend despite everything.",
     "From playing Truth and Dare and shouting 'Statue!' in childhood to standing on the edge of adulthood and chasing dreams, you've always been an important part of my life.",
     "Even without a single photograph together, we carry countless memories that no camera could ever capture.",
-    "I truly believe your NEET journey will end in success, and one day we will celebrate Dr. [HER NAME] with the biggest smiles and finally click that long-overdue picture together.",
+    "I truly believe your NEET journey will end in success, and one day we will celebrate Dr. Devagya with the biggest smiles and finally click that long-overdue picture together.",
     "Thank you for every laugh, every lesson, every act of kindness, and every moment of support.",
   ];
 
@@ -403,13 +403,13 @@ function FinalSection() {
 
               <div className="my-6 h-px bg-gradient-to-r from-transparent via-[color:var(--rose)]/50 to-transparent" />
 
-              <p className="text-center text-2xl">Happy Birthday, my best friend.</p>
+              <p className="text-center text-2xl">Happy Birthday, Devagya.</p>
               <p className="text-center text-[color:var(--muted-foreground)]">And once again —</p>
               <p className="text-center font-[family-name:var(--font-script)] text-3xl text-[color:var(--rose)]">I'm sorry.</p>
 
               <div className="pt-6 text-right">
                 <p className="text-[color:var(--muted-foreground)]">With love,</p>
-                <p className="font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)]">Your forever annoying best friend. ❤️</p>
+                <p className="font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)]">Lakshay — your forever annoying best friend. ❤️</p>
               </div>
             </div>
           </article>
