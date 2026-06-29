@@ -7,9 +7,9 @@ import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Happy Birthday, My Best Friend ❤️" },
-      { name: "description", content: "A heartfelt birthday letter — a journey through a friendship that began in 5th class and never let go." },
-      { property: "og:title", content: "Happy Birthday, My Best Friend ❤️" },
+      { title: "Happy Birthday, Devagya ❤️" },
+      { name: "description", content: "A heartfelt birthday letter from Lakshay to Devagya — a journey through a friendship that began in 5th class and never let go." },
+      { property: "og:title", content: "Happy Birthday, Devagya ❤️" },
       { property: "og:description", content: "From two kids in 5th class to a friendship that survived every phase of life." },
     ],
   }),
