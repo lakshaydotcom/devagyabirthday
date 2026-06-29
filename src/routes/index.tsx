@@ -403,13 +403,13 @@ function FinalSection() {
 
               <div className="my-6 h-px bg-gradient-to-r from-transparent via-[color:var(--rose)]/50 to-transparent" />
 
-              <p className="text-center text-2xl">Happy Birthday, my best friend.</p>
+              <p className="text-center text-2xl">Happy Birthday, Devagya.</p>
               <p className="text-center text-[color:var(--muted-foreground)]">And once again —</p>
               <p className="text-center font-[family-name:var(--font-script)] text-3xl text-[color:var(--rose)]">I'm sorry.</p>
 
               <div className="pt-6 text-right">
                 <p className="text-[color:var(--muted-foreground)]">With love,</p>
-                <p className="font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)]">Your forever annoying best friend. ❤️</p>
+                <p className="font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)]">Lakshay — your forever annoying best friend. ❤️</p>
               </div>
             </div>
           </article>
