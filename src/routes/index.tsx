@@ -115,7 +115,7 @@ function BirthdayPage() {
             transition={{ duration: 1 }}
             className="mb-4 font-[family-name:var(--font-script)] text-3xl text-[color:var(--rose)] sm:text-4xl"
           >
-            a letter for you
+            a letter for devagya
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
