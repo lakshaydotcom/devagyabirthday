@@ -124,7 +124,7 @@ function BirthdayPage() {
             className="text-5xl leading-[1.05] sm:text-6xl md:text-7xl"
           >
             <span className="block">Happy Birthday,</span>
-            <span className="text-gradient block">My Best Friend</span>
+            <span className="text-gradient block">Devagya</span>
             <motion.span
               aria-hidden
               className="inline-block heart-beat"
