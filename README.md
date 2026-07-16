@@ -36,3 +36,9 @@ This project is configured for live deployment with **GitHub + Azure Static Web 
 2. Push the branch and open PR for preview.
 3. Verify preview.
 4. Merge PR into `main` to publish.
+
+
+
+click here to view the site :  
+
+# https://lively-sky-035da4600.7.azurestaticapps.net
