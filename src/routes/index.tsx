@@ -252,6 +252,36 @@ function BirthdayPage() {
         </Reveal>
       </Section>
 
+      {/* SECTION 3.5: A SMALL REQUEST */}
+      <Section id="phone">
+        <Reveal><SectionTitle kicker="a small request" title="Pick Up, and Call Sometimes" /></Reveal>
+        <Reveal delay={0.1}>
+          <GlassCard>
+            <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
+              <motion.div
+                animate={{ rotate: [0, -12, 12, -8, 8, 0] }}
+                transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 2, ease: "easeInOut" }}
+                className="shrink-0 text-7xl"
+                aria-hidden
+              >
+                📞
+              </motion.div>
+              <div>
+                <p className="text-lg leading-relaxed text-[color:var(--foreground)]/85 sm:text-xl">
+                  I have just one tiny wish, and I'm asking it with all my heart — please try to <span className="font-semibold text-[color:var(--rose)]">pick up the phone on time</span> when I call. And once in a while, if it's not too much to ask, <span className="font-semibold text-[color:var(--rose)]">call me on your own</span> too.
+                </p>
+                <p className="mt-4 text-base leading-relaxed text-[color:var(--muted-foreground)] sm:text-lg">
+                  I know life gets busy, studies get heavier, and days slip by faster than we notice. I'm not asking for long conversations — even a short "hi, how are you?" from your side means the whole world to me.
+                </p>
+                <p className="mt-4 font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)]">
+                  A missed call from you still makes my day. 🤍
+                </p>
+              </div>
+            </div>
+          </GlassCard>
+        </Reveal>
+      </Section>
+
       {/* SECTION 4: FUNNY TRUTH */}
       <Section id="annoying">
         <Reveal><SectionTitle kicker="chapter four" title="The Forever Annoying Friend" /></Reveal>
