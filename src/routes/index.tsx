@@ -3,6 +3,7 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import confetti from "canvas-confetti";
 import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
+import { phone } from "@/lib/phone";
 
 export const Route = createFileRoute("/")({
   head: () => ({
