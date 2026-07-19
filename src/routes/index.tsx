@@ -542,6 +542,119 @@ function BirthdayPage() {
   );
 }
 
+function NeetResultSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [celebrated, setCelebrated] = useState(false);
+  const reduce = useReducedMotion();
+
+  useEffect(() => {
+    if (inView && !celebrated) {
+      setCelebrated(true);
+      if (!reduce) {
+        setTimeout(() => fireConfetti({ particleCount: 120, spread: 110, origin: { y: 0.6 } }), 300);
+        setTimeout(() => heartConfetti(), 900);
+      }
+    }
+  }, [inView, celebrated, reduce]);
+
+  const stats = [
+    { label: "Total Marks", value: "632", sub: "out of 720", icon: "🎯" },
+    { label: "Overall Percentile", value: "99.84", sub: "top 0.16%", icon: "📈" },
+    { label: "All India Rank", value: "3,269", sub: "among lakhs", icon: "🏆" },
+    { label: "Category Rank", value: "1,611", sub: "General", icon: "🌟" },
+  ];
+
+  const subjects = [
+    { name: "Biology", percentile: "97.43", color: "oklch(0.78 0.13 10)" },
+    { name: "Chemistry", percentile: "99.92", color: "oklch(0.82 0.07 300)" },
+    { name: "Physics", percentile: "99.73", color: "oklch(0.88 0.09 50)" },
+  ];
+
+  return (
+    <Section id="neet-result" ref={ref}>
+      <Reveal>
+        <SectionTitle kicker="she did it" title="Dr. Devagya, Loading..." />
+      </Reveal>
+
+      <Reveal delay={0.1}>
+        <div className="text-center">
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-[color:var(--foreground)]/85 sm:text-xl">
+            The result is out, and it is nothing short of extraordinary. Your name — <span className="font-semibold text-[color:var(--rose)]">Devagya</span> — now shines among the top achievers of NEET UG 2026. All those sleepless nights, all that sacrifice, every page you turned — it was worth it.
+          </p>
+        </div>
+      </Reveal>
+
+      <Reveal delay={0.2}>
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              initial={reduce ? false : { opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.25 + i * 0.1, duration: 0.6 }}
+              whileHover={{ y: -6 }}
+              className="glass-strong relative overflow-hidden rounded-3xl p-6 text-center"
+            >
+              <div aria-hidden className="absolute -right-3 -top-3 text-5xl opacity-20">{s.icon}</div>
+              <div className="relative">
+                <p className="text-4xl font-medium tracking-tight text-[color:var(--foreground)] sm:text-5xl">{s.value}</p>
+                <p className="mt-1 text-sm font-medium text-[color:var(--rose)]">{s.label}</p>
+                <p className="mt-1 text-xs text-[color:var(--muted-foreground)]">{s.sub}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </Reveal>
+
+      <Reveal delay={0.4}>
+        <GlassCard className="mt-10">
+          <h3 className="mb-6 text-center text-2xl text-[color:var(--foreground)]">Subject-wise Percentiles</h3>
+          <div className="space-y-5">
+            {subjects.map((subject) => (
+              <div key={subject.name}>
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="font-medium text-[color:var(--foreground)]">{subject.name}</span>
+                  <span className="text-sm font-semibold" style={{ color: subject.color }}>{subject.percentile}%</span>
+                </div>
+                <div className="h-3 w-full overflow-hidden rounded-full bg-[color:var(--muted)]">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${parseFloat(subject.percentile)}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                    className="h-full rounded-full"
+                    style={{ background: subject.color }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </GlassCard>
+      </Reveal>
+
+      <Reveal delay={0.5}>
+        <div className="mt-10 flex flex-col items-center gap-4 text-center">
+          <p className="font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)] sm:text-3xl">
+            "The white coat is no longer a dream. It's your future."
+          </p>
+          <a
+            href={neetScorecard.url}
+            download="NEET_UG_-_2026_Devagya.pdf"
+            onClick={() => fireConfetti({ particleCount: 60, spread: 80 })}
+            className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-medium text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+            style={{ background: "var(--gradient-rose)", boxShadow: "0 20px 50px -15px oklch(0.7 0.18 10 / 0.6)" }}
+          >
+            <span aria-hidden>📄</span> Download Scorecard
+          </a>
+          <p className="text-xs text-[color:var(--muted-foreground)]">Roll No. 2317101024 · Result declared 16 July 2026</p>
+        </div>
+      </Reveal>
+    </Section>
+  );
+}
+
 function FinalSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
