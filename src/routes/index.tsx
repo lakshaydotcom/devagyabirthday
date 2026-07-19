@@ -103,6 +103,7 @@ function ConfirmCallModal({ open, onCancel, onConfirm }: { open: boolean; onCanc
         <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">
           This will open your phone dialer. Are you sure you want to call?
         </p>
+        <p className="mt-1 font-medium text-[color:var(--foreground)]">{phone.international}</p>
         <div className="mt-6 flex gap-3">
           <button
             onClick={onCancel}
@@ -111,7 +112,7 @@ function ConfirmCallModal({ open, onCancel, onConfirm }: { open: boolean; onCanc
             Cancel
           </button>
           <a
-            href="tel:+917015098950"
+            href={phone.telHref}
             onClick={() => {
               fireConfetti({ particleCount: 40, spread: 60 });
               onConfirm();
