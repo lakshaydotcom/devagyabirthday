@@ -403,15 +403,12 @@ function BirthdayPage() {
                   >
                     <span aria-hidden>📞</span> Call Lakshay
                   </button>
-                  <a
-                    href="https://wa.me/917015098950?text=Hi%20Lakshay%20%E2%9D%A4%EF%B8%8F"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => heartConfetti()}
+                  <button
+                    onClick={() => setWhatsappModalOpen(true)}
                     className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-[color:var(--foreground)] transition-transform hover:scale-105 active:scale-95"
                   >
                     <span aria-hidden>💬</span> WhatsApp
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
