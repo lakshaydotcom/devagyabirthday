@@ -283,10 +283,10 @@ function BirthdayPage() {
                     className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
                     style={{ background: "var(--gradient-rose)", boxShadow: "0 15px 40px -12px oklch(0.7 0.18 10 / 0.6)" }}
                   >
-                    <span aria-hidden>📞</span> Call Devagya
+                    <span aria-hidden>📞</span> Call Lakshay
                   </a>
                   <a
-                    href="https://wa.me/917015098950?text=Happy%20Birthday%2C%20Devagya%20%E2%9D%A4%EF%B8%8F"
+                    href="https://wa.me/917015098950?text=Hi%20Lakshay%20%E2%9D%A4%EF%B8%8F"
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => heartConfetti()}
