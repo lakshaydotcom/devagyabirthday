@@ -136,21 +136,26 @@ function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () 
     heartConfetti();
     // Same-tab navigation avoids popup/redirect blocks.
     // whatsapp:// works when the app is installed; wa.me is the safe fallback.
-    const deep = `whatsapp://send?phone=${PHONE_NUMBER}&text=${WHATSAPP_TEXT}`;
-    const web = `https://wa.me/${PHONE_NUMBER}?text=${WHATSAPP_TEXT}`;
     const start = Date.now();
-    window.location.href = deep;
+    window.location.href = phone.waDeepLink;
     setTimeout(() => {
       if (Date.now() - start < 1600 && document.visibilityState === "visible") {
-        window.location.href = web;
+        window.location.href = phone.waHref;
       }
     }, 1500);
     onCancel();
   };
 
+  const openSms = () => {
+    heartConfetti();
+    // sms: opens the device's default messaging app as a fallback.
+    window.location.href = phone.smsHref;
+    onCancel();
+  };
+
   const copyNumber = async () => {
     try {
-      await navigator.clipboard.writeText("+91 70150 98950");
+      await navigator.clipboard.writeText(phone.international);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -174,6 +179,7 @@ function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () 
         <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">
           This will open WhatsApp so you can send a quick message.
         </p>
+        <p className="mt-1 font-medium text-[color:var(--foreground)]">{phone.international}</p>
         <div className="mt-6 flex flex-col gap-3">
           <button
             onClick={openWhatsApp}
@@ -181,6 +187,12 @@ function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () 
             style={{ background: "var(--gradient-rose)", boxShadow: "0 12px 30px -10px oklch(0.7 0.18 10 / 0.55)" }}
           >
             Open WhatsApp
+          </button>
+          <button
+            onClick={openSms}
+            className="w-full rounded-full px-4 py-2.5 text-sm font-medium text-[color:var(--foreground)] transition-transform hover:scale-105 active:scale-95"
+          >
+            Send as SMS ✉️
           </button>
           <button
             onClick={copyNumber}
