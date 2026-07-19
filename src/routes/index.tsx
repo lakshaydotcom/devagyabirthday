@@ -512,6 +512,10 @@ function BirthdayPage() {
         onCancel={() => setCallModalOpen(false)}
         onConfirm={() => setCallModalOpen(false)}
       />
+      <ConfirmWhatsAppModal
+        open={whatsappModalOpen}
+        onCancel={() => setWhatsappModalOpen(false)}
+      />
     </main>
   );
 }
