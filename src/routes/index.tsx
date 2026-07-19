@@ -204,6 +204,7 @@ function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () 
 function BirthdayPage() {
   const [started, setStarted] = useState(false);
   const [callModalOpen, setCallModalOpen] = useState(false);
+  const [whatsappModalOpen, setWhatsappModalOpen] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
   const begin = () => {
