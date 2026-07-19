@@ -3,6 +3,7 @@ import { motion, useInView, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import confetti from "canvas-confetti";
 import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
+import { phone } from "@/lib/phone";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -102,6 +103,7 @@ function ConfirmCallModal({ open, onCancel, onConfirm }: { open: boolean; onCanc
         <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">
           This will open your phone dialer. Are you sure you want to call?
         </p>
+        <p className="mt-1 font-medium text-[color:var(--foreground)]">{phone.international}</p>
         <div className="mt-6 flex gap-3">
           <button
             onClick={onCancel}
@@ -110,7 +112,7 @@ function ConfirmCallModal({ open, onCancel, onConfirm }: { open: boolean; onCanc
             Cancel
           </button>
           <a
-            href="tel:+917015098950"
+            href={phone.telHref}
             onClick={() => {
               fireConfetti({ particleCount: 40, spread: 60 });
               onConfirm();
@@ -126,8 +128,6 @@ function ConfirmCallModal({ open, onCancel, onConfirm }: { open: boolean; onCanc
   );
 }
 
-const PHONE_NUMBER = "917015098950";
-const WHATSAPP_TEXT = encodeURIComponent("Hi Lakshay ❤️");
 
 function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () => void }) {
   const [copied, setCopied] = useState(false);
@@ -137,21 +137,26 @@ function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () 
     heartConfetti();
     // Same-tab navigation avoids popup/redirect blocks.
     // whatsapp:// works when the app is installed; wa.me is the safe fallback.
-    const deep = `whatsapp://send?phone=${PHONE_NUMBER}&text=${WHATSAPP_TEXT}`;
-    const web = `https://wa.me/${PHONE_NUMBER}?text=${WHATSAPP_TEXT}`;
     const start = Date.now();
-    window.location.href = deep;
+    window.location.href = phone.waDeepLink;
     setTimeout(() => {
       if (Date.now() - start < 1600 && document.visibilityState === "visible") {
-        window.location.href = web;
+        window.location.href = phone.waHref;
       }
     }, 1500);
     onCancel();
   };
 
+  const openSms = () => {
+    heartConfetti();
+    // sms: opens the device's default messaging app as a fallback.
+    window.location.href = phone.smsHref;
+    onCancel();
+  };
+
   const copyNumber = async () => {
     try {
-      await navigator.clipboard.writeText("+91 70150 98950");
+      await navigator.clipboard.writeText(phone.international);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -175,6 +180,7 @@ function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () 
         <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">
           This will open WhatsApp so you can send a quick message.
         </p>
+        <p className="mt-1 font-medium text-[color:var(--foreground)]">{phone.international}</p>
         <div className="mt-6 flex flex-col gap-3">
           <button
             onClick={openWhatsApp}
@@ -182,6 +188,12 @@ function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () 
             style={{ background: "var(--gradient-rose)", boxShadow: "0 12px 30px -10px oklch(0.7 0.18 10 / 0.55)" }}
           >
             Open WhatsApp
+          </button>
+          <button
+            onClick={openSms}
+            className="w-full rounded-full px-4 py-2.5 text-sm font-medium text-[color:var(--foreground)] transition-transform hover:scale-105 active:scale-95"
+          >
+            Send as SMS ✉️
           </button>
           <button
             onClick={copyNumber}
@@ -409,6 +421,12 @@ function BirthdayPage() {
                   >
                     <span aria-hidden>💬</span> WhatsApp
                   </button>
+                  <a
+                    href={phone.smsHref}
+                    className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-[color:var(--foreground)] transition-transform hover:scale-105 active:scale-95"
+                  >
+                    <span aria-hidden>✉️</span> SMS
+                  </a>
                 </div>
               </div>
             </div>
