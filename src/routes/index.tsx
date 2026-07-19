@@ -127,8 +127,6 @@ function ConfirmCallModal({ open, onCancel, onConfirm }: { open: boolean; onCanc
   );
 }
 
-const PHONE_NUMBER = "917015098950";
-const WHATSAPP_TEXT = encodeURIComponent("Hi Lakshay ❤️");
 
 function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () => void }) {
   const [copied, setCopied] = useState(false);
