@@ -42,13 +42,16 @@ function heartConfetti() {
   });
 }
 
-function Section({ id, children, className = "" }: { id?: string; children: ReactNode; className?: string }) {
-  return (
-    <section id={id} className={`relative z-10 mx-auto w-full max-w-5xl px-5 py-20 sm:px-8 sm:py-28 ${className}`}>
-      {children}
-    </section>
-  );
-}
+const Section = forwardRef<HTMLElement, { id?: string; children: ReactNode; className?: string }>(
+  ({ id, children, className = "" }, ref) => {
+    return (
+      <section ref={ref} id={id} className={`relative z-10 mx-auto w-full max-w-5xl px-5 py-20 sm:px-8 sm:py-28 ${className}`}>
+        {children}
+      </section>
+    );
+  }
+);
+Section.displayName = "Section";
 
 function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
