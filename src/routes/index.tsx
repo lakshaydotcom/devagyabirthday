@@ -523,6 +523,9 @@ function BirthdayPage() {
         </Reveal>
       </Section>
 
+      {/* SECTION 7: NEET RESULT */}
+      <NeetResultSection />
+
       {/* FINAL: LETTER */}
       <FinalSection />
 
