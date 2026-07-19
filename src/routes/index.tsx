@@ -276,11 +276,31 @@ function BirthdayPage() {
                 <p className="mt-4 font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)]">
                   A missed call from you still makes my day. 🤍
                 </p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a
+                    href="tel:+917015098950"
+                    onClick={() => fireConfetti({ particleCount: 40, spread: 60 })}
+                    className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+                    style={{ background: "var(--gradient-rose)", boxShadow: "0 15px 40px -12px oklch(0.7 0.18 10 / 0.6)" }}
+                  >
+                    <span aria-hidden>📞</span> Call Devagya
+                  </a>
+                  <a
+                    href="https://wa.me/917015098950?text=Happy%20Birthday%2C%20Devagya%20%E2%9D%A4%EF%B8%8F"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => heartConfetti()}
+                    className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-[color:var(--foreground)] transition-transform hover:scale-105 active:scale-95"
+                  >
+                    <span aria-hidden>💬</span> WhatsApp
+                  </a>
+                </div>
               </div>
             </div>
           </GlassCard>
         </Reveal>
       </Section>
+
 
       {/* SECTION 4: FUNNY TRUTH */}
       <Section id="annoying">
