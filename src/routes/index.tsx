@@ -320,14 +320,13 @@ function BirthdayPage() {
                   A missed call from you still makes my day. 🤍
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <a
-                    href="tel:+917015098950"
-                    onClick={() => fireConfetti({ particleCount: 40, spread: 60 })}
+                  <button
+                    onClick={() => setCallModalOpen(true)}
                     className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
                     style={{ background: "var(--gradient-rose)", boxShadow: "0 15px 40px -12px oklch(0.7 0.18 10 / 0.6)" }}
                   >
                     <span aria-hidden>📞</span> Call Lakshay
-                  </a>
+                  </button>
                   <a
                     href="https://wa.me/917015098950?text=Hi%20Lakshay%20%E2%9D%A4%EF%B8%8F"
                     target="_blank"
@@ -434,6 +433,12 @@ function BirthdayPage() {
 
       {/* FINAL: LETTER */}
       <FinalSection />
+
+      <ConfirmCallModal
+        open={callModalOpen}
+        onCancel={() => setCallModalOpen(false)}
+        onConfirm={() => setCallModalOpen(false)}
+      />
     </main>
   );
 }
