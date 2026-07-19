@@ -678,7 +678,7 @@ function FinalSection() {
     "Thank you for staying, supporting me, believing in me, and being my friend despite everything.",
     "From playing Truth and Dare and shouting 'Statue!' in childhood to standing on the edge of adulthood and chasing dreams, you've always been an important part of my life.",
     "Even without a single photograph together, we carry countless memories that no camera could ever capture.",
-    "I truly believe your NEET journey will end in success, and one day we will celebrate Dr. Devagya with the biggest smiles and finally click that long-overdue picture together.",
+    "Your NEET journey ended in success, and today we celebrate Dr. Devagya with the biggest smiles. One day, we'll finally click that long-overdue picture together.",
     "Thank you for every laugh, every lesson, every act of kindness, and every moment of support.",
   ];
 
