@@ -84,8 +84,51 @@ function GlassCard({ children, className = "" }: { children: ReactNode; classNam
   );
 }
 
+function ConfirmCallModal({ open, onCancel, onConfirm }: { open: boolean; onCancel: () => void; onConfirm: () => void }) {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-5" role="dialog" aria-modal="true">
+      <div className="absolute inset-0 bg-[color:var(--background)]/60 backdrop-blur-sm" onClick={onCancel} />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.92, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+        className="glass-strong relative z-10 w-full max-w-sm rounded-3xl p-6 text-center shadow-2xl"
+      >
+        <div className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full" style={{ background: "var(--gradient-rose)" }}>
+          <span className="text-2xl">📞</span>
+        </div>
+        <h3 className="text-2xl font-medium text-[color:var(--foreground)]">Call Lakshay?</h3>
+        <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">
+          This will open your phone dialer. Are you sure you want to call?
+        </p>
+        <div className="mt-6 flex gap-3">
+          <button
+            onClick={onCancel}
+            className="flex-1 rounded-full px-4 py-2.5 text-sm font-medium text-[color:var(--foreground)] transition-transform hover:scale-105 active:scale-95"
+          >
+            Cancel
+          </button>
+          <a
+            href="tel:+917015098950"
+            onClick={() => {
+              fireConfetti({ particleCount: 40, spread: 60 });
+              onConfirm();
+            }}
+            className="flex-1 rounded-full px-4 py-2.5 text-sm font-medium text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
+            style={{ background: "var(--gradient-rose)", boxShadow: "0 12px 30px -10px oklch(0.7 0.18 10 / 0.55)" }}
+          >
+            Call
+          </a>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 function BirthdayPage() {
   const [started, setStarted] = useState(false);
+  const [callModalOpen, setCallModalOpen] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
   const begin = () => {
@@ -277,14 +320,13 @@ function BirthdayPage() {
                   A missed call from you still makes my day. 🤍
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
-                  <a
-                    href="tel:+917015098950"
-                    onClick={() => fireConfetti({ particleCount: 40, spread: 60 })}
+                  <button
+                    onClick={() => setCallModalOpen(true)}
                     className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
                     style={{ background: "var(--gradient-rose)", boxShadow: "0 15px 40px -12px oklch(0.7 0.18 10 / 0.6)" }}
                   >
                     <span aria-hidden>📞</span> Call Lakshay
-                  </a>
+                  </button>
                   <a
                     href="https://wa.me/917015098950?text=Hi%20Lakshay%20%E2%9D%A4%EF%B8%8F"
                     target="_blank"
@@ -391,6 +433,12 @@ function BirthdayPage() {
 
       {/* FINAL: LETTER */}
       <FinalSection />
+
+      <ConfirmCallModal
+        open={callModalOpen}
+        onCancel={() => setCallModalOpen(false)}
+        onConfirm={() => setCallModalOpen(false)}
+      />
     </main>
   );
 }
