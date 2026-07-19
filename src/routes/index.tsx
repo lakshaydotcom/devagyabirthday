@@ -421,6 +421,12 @@ function BirthdayPage() {
                   >
                     <span aria-hidden>💬</span> WhatsApp
                   </button>
+                  <a
+                    href={phone.smsHref}
+                    className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-[color:var(--foreground)] transition-transform hover:scale-105 active:scale-95"
+                  >
+                    <span aria-hidden>✉️</span> SMS
+                  </a>
                 </div>
               </div>
             </div>
