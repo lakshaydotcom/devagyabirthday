@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import confetti from "canvas-confetti";
 import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
 import { phone } from "@/lib/phone";
+import neetScorecard from "@/assets/NEET_UG_-_2026.pdf.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
