@@ -5,6 +5,7 @@ import confetti from "canvas-confetti";
 import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
 import { phone } from "@/lib/phone";
 import neetScorecard from "@/assets/NEET_UG_-_2026.pdf.asset.json";
+import celebrateTogether from "@/assets/celebrate-together.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -528,6 +529,9 @@ function BirthdayPage() {
 
       {/* SECTION 7: NEET RESULT */}
       <NeetResultSection />
+
+      {/* SECTION 8: GALLERY */}
+      <GallerySection />
 
       {/* FINAL: LETTER */}
       <FinalSection />
