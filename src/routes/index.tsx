@@ -6,6 +6,9 @@ import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
 import { phone } from "@/lib/phone";
 import neetScorecard from "@/assets/NEET_UG_-_2026.pdf.asset.json";
 import celebrateTogether from "@/assets/celebrate-together.jpg";
+import devagyaPortrait from "@/assets/devagya-portrait.png.asset.json";
+import devagyaLakshay from "@/assets/devagya-lakshay.png.asset.json";
+import devagyaFamily from "@/assets/devagya-family.jpeg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -771,11 +774,77 @@ function GallerySection() {
     { emoji: "🌇", label: "That long-awaited walk" },
   ];
 
+  const photos = [
+    {
+      src: devagyaPortrait.url,
+      alt: "Devagya wearing a bright safa and marigold garland on her big day",
+      caption: "the day everything paid off",
+      span: "sm:col-span-2 sm:row-span-2",
+    },
+    {
+      src: devagyaLakshay.url,
+      alt: "Devagya and Lakshay together after her felicitation",
+      caption: "us — finally in one frame",
+    },
+    {
+      src: devagyaFamily.url,
+      alt: "Devagya being celebrated by family with garlands",
+      caption: "surrounded by the people who prayed for this",
+    },
+  ];
+
   return (
     <Section id="gallery">
       <Reveal>
-        <SectionTitle kicker="a little gallery" title="Frames Waiting To Be Filled" />
+        <SectionTitle kicker="a little gallery" title="Moments Worth Framing" />
       </Reveal>
+
+      <Reveal delay={0.05}>
+        <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4">
+          {photos.map((p, i) => (
+            <motion.figure
+              key={p.src}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.7, delay: i * 0.08 }}
+              whileHover={{ y: -4 }}
+              className={`glass-strong group relative overflow-hidden rounded-3xl p-2 ${p.span ?? ""}`}
+            >
+              <div className="relative overflow-hidden rounded-2xl">
+                <img
+                  src={p.src}
+                  alt={p.alt}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.05]"
+                  style={{ aspectRatio: p.span ? "4/5" : "3/4" }}
+                />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, transparent 55%, oklch(0.22 0.05 340 / 0.6) 100%)",
+                  }}
+                />
+                <figcaption className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
+                  <p className="font-[family-name:var(--font-script)] text-lg text-white/95 drop-shadow sm:text-xl">
+                    {p.caption}
+                  </p>
+                </figcaption>
+              </div>
+            </motion.figure>
+          ))}
+        </div>
+      </Reveal>
+
+      <Reveal delay={0.15}>
+        <p className="mx-auto mt-8 max-w-2xl text-center text-[color:var(--muted-foreground)]">
+          A few real frames from your big day — and below, the one I imagined for us,
+          waiting patiently to become real.
+        </p>
+      </Reveal>
+
 
       <Reveal delay={0.1}>
         <div className="glass-strong group relative mx-auto overflow-hidden rounded-[2rem] p-3 sm:p-4">
