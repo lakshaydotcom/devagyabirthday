@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-// Background song. Swap this URL any time — the file just needs to be a
-// direct .mp3 (or hosted audio) reachable by the browser.
-// Placeholder: gentle instrumental. Replace with your chosen romantic track.
+// Background song — suggested Arijit Singh tracks that suit this website's
+// warm, nostalgic mood: "Kabira (Encore)" from Yeh Jawaani Hai Deewani,
+// "Phir Le Aya Dil" (Reprise), "Tum Hi Ho", or "Tera Yaar Hoon Main".
+// Copyrighted tracks can't be hosted here — drop your own direct .mp3 URL
+// (e.g. an uploaded file, S3, or a signed CDN link) into SONG_URL below.
+// A gentle royalty-free instrumental is used as a working placeholder.
 const SONG_URL = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3";
 
 export function MusicToggle() {
