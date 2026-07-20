@@ -1,75 +1,50 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-type Mode = "off" | "on";
+// Background song. Swap this URL any time — the file just needs to be a
+// direct .mp3 (or hosted audio) reachable by the browser.
+// Placeholder: gentle instrumental. Replace with your chosen romantic track.
+const SONG_URL = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3";
 
-// Soft ambient pad using WebAudio — no external file needed.
 export function MusicToggle() {
-  const [mode, setMode] = useState<Mode>("off");
-  const ctxRef = useRef<AudioContext | null>(null);
-  const nodesRef = useRef<{ osc: OscillatorNode; gain: GainNode }[]>([]);
-  const masterRef = useRef<GainNode | null>(null);
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const start = () => {
-    const AC = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-    const ctx = new AC();
-    ctxRef.current = ctx;
-    const master = ctx.createGain();
-    master.gain.value = 0;
-    master.connect(ctx.destination);
-    masterRef.current = master;
+  useEffect(() => {
+    const a = new Audio(SONG_URL);
+    a.loop = true;
+    a.volume = 0.35;
+    a.preload = "auto";
+    audioRef.current = a;
+    return () => { a.pause(); audioRef.current = null; };
+  }, []);
 
-    // A gentle C major 9 pad: C E G B D
-    const freqs = [261.63, 329.63, 392.0, 493.88, 587.33];
-    freqs.forEach((f, i) => {
-      const osc = ctx.createOscillator();
-      osc.type = i % 2 === 0 ? "sine" : "triangle";
-      osc.frequency.value = f / 2; // octave down for warmth
-      const g = ctx.createGain();
-      g.gain.value = 0.05 + i * 0.005;
-      // Slow LFO on gain for breathing
-      const lfo = ctx.createOscillator();
-      const lfoGain = ctx.createGain();
-      lfo.frequency.value = 0.08 + i * 0.03;
-      lfoGain.gain.value = 0.025;
-      lfo.connect(lfoGain).connect(g.gain);
-      lfo.start();
-      osc.connect(g).connect(master);
-      osc.start();
-      nodesRef.current.push({ osc, gain: g });
-    });
-    master.gain.linearRampToValueAtTime(0.22, ctx.currentTime + 2.5);
+  const toggle = async () => {
+    const a = audioRef.current;
+    if (!a) return;
+    if (playing) {
+      a.pause();
+      setPlaying(false);
+    } else {
+      try {
+        await a.play();
+        setPlaying(true);
+      } catch {
+        setPlaying(false);
+      }
+    }
   };
-
-  const stop = () => {
-    const ctx = ctxRef.current;
-    const master = masterRef.current;
-    if (!ctx || !master) return;
-    master.gain.cancelScheduledValues(ctx.currentTime);
-    master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.8);
-    setTimeout(() => {
-      nodesRef.current.forEach(({ osc }) => { try { osc.stop(); } catch { /* noop */ } });
-      nodesRef.current = [];
-      ctx.close().catch(() => undefined);
-      ctxRef.current = null;
-      masterRef.current = null;
-    }, 900);
-  };
-
-  const toggle = () => {
-    if (mode === "off") { start(); setMode("on"); }
-    else { stop(); setMode("off"); }
-  };
-
-  useEffect(() => () => stop(), []);
 
   return (
     <button
       onClick={toggle}
-      aria-label={mode === "on" ? "Pause music" : "Play music"}
+      aria-label={playing ? "Pause music" : "Play music"}
       className="glass fixed bottom-5 right-5 z-50 grid h-12 w-12 place-items-center rounded-full transition-transform hover:scale-110"
     >
-      <span className="text-lg">{mode === "on" ? "♪" : "♫"}</span>
-      <span className={`absolute inset-0 rounded-full ${mode === "on" ? "animate-pulse" : ""}`} style={{ boxShadow: mode === "on" ? "0 0 30px var(--rose)" : "none" }} />
+      <span className="text-lg">{playing ? "♪" : "♫"}</span>
+      <span
+        className={`pointer-events-none absolute inset-0 rounded-full ${playing ? "animate-pulse" : ""}`}
+        style={{ boxShadow: playing ? "0 0 30px var(--rose)" : "none" }}
+      />
     </button>
   );
 }
