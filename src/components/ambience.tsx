@@ -8,6 +8,7 @@ const SONG_URL = songAsset.url;
 
 export function MusicToggle() {
   const [playing, setPlaying] = useState(false);
+  const [autoPlayBlocked, setAutoPlayBlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
@@ -16,6 +17,18 @@ export function MusicToggle() {
     a.volume = 0.35;
     a.preload = "auto";
     audioRef.current = a;
+
+    // Attempt autoplay on first load. Browsers may block it until the user interacts.
+    const tryAutoPlay = async () => {
+      try {
+        await a.play();
+        setPlaying(true);
+      } catch {
+        setAutoPlayBlocked(true);
+      }
+    };
+    void tryAutoPlay();
+
     return () => { a.pause(); audioRef.current = null; };
   }, []);
 
@@ -29,6 +42,7 @@ export function MusicToggle() {
       try {
         await a.play();
         setPlaying(true);
+        setAutoPlayBlocked(false);
       } catch {
         setPlaying(false);
       }
@@ -36,17 +50,27 @@ export function MusicToggle() {
   };
 
   return (
-    <button
-      onClick={toggle}
-      aria-label={playing ? "Pause music" : "Play music"}
-      className="glass fixed bottom-5 right-5 z-50 grid h-12 w-12 place-items-center rounded-full transition-transform hover:scale-110"
-    >
-      <span className="text-lg">{playing ? "♪" : "♫"}</span>
-      <span
-        className={`pointer-events-none absolute inset-0 rounded-full ${playing ? "animate-pulse" : ""}`}
-        style={{ boxShadow: playing ? "0 0 30px var(--rose)" : "none" }}
-      />
-    </button>
+    <>
+      <button
+        onClick={toggle}
+        aria-label={playing ? "Pause music" : "Play music"}
+        className={`glass fixed bottom-5 right-5 z-50 grid h-12 w-12 place-items-center rounded-full transition-transform hover:scale-110 ${autoPlayBlocked ? "animate-bounce" : ""}`}
+      >
+        <span className="text-lg">{playing ? "♪" : "♫"}</span>
+        <span
+          className={`pointer-events-none absolute inset-0 rounded-full ${playing ? "animate-pulse" : ""}`}
+          style={{ boxShadow: playing ? "0 0 30px var(--rose)" : "none" }}
+        />
+      </button>
+      {autoPlayBlocked && (
+        <button
+          onClick={toggle}
+          className="glass fixed bottom-20 right-5 z-50 max-w-[180px] rounded-2xl px-4 py-2 text-xs font-medium text-rose-700 shadow-lg fade-in"
+        >
+          Tap to play Devagya’s song 🎵
+        </button>
+      )}
+    </>
   );
 }
 
