@@ -65,7 +65,7 @@ export function MusicToggle() {
       {autoPlayBlocked && (
         <button
           onClick={toggle}
-          className="glass fixed bottom-20 right-5 z-50 max-w-[180px] rounded-2xl px-4 py-2 text-xs font-medium text-rose-700 shadow-lg animate-fade-in"
+          className="glass fixed bottom-20 right-5 z-50 max-w-[180px] rounded-2xl px-4 py-2 text-xs font-medium text-rose-700 shadow-lg fade-in"
         >
           Tap to play Devagya’s song 🎵
         </button>
