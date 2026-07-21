@@ -221,6 +221,34 @@ function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () 
   );
 }
 
+function BackToTop() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 500);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <motion.button
+      onClick={scrollToTop}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.8, pointerEvents: visible ? "auto" : "none" }}
+      transition={{ duration: 0.3 }}
+      aria-label="Back to top"
+      className="glass fixed bottom-5 left-5 z-50 grid h-12 w-12 place-items-center rounded-full transition-transform hover:scale-110 active:scale-95"
+    >
+      <span className="text-lg">↑</span>
+    </motion.button>
+  );
+}
+
 function BirthdayPage() {
   const [started, setStarted] = useState(false);
   const [callModalOpen, setCallModalOpen] = useState(false);
