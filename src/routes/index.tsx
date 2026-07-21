@@ -497,6 +497,31 @@ function BirthdayPage() {
         </Reveal>
       </Section>
 
+        <Reveal delay={0.2}>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                q: "You once called me the most irritating person you know.",
+                a: "I took it as a compliment. 'Most' means I won something, right? 🏆",
+              },
+              {
+                q: "How did you finish a 3-hour NEET paper so calmly?",
+                a: "Years of practice ignoring my texts prepared you for anything. 😌",
+              },
+            ].map((joke, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -4, rotate: i % 2 ? 1 : -1 }}
+                className="glass rounded-2xl p-5 text-center"
+              >
+                <p className="font-medium text-[color:var(--foreground)]">{joke.q}</p>
+                <p className="mt-2 text-[color:var(--muted-foreground)]">{joke.a}</p>
+              </motion.div>
+            ))}
+          </div>
+        </Reveal>
+      </Section>
+
       {/* SECTION 5: MEMORIES WITHOUT PHOTOS */}
       <Section id="memories">
         <Reveal><SectionTitle kicker="chapter five" title="Moments We Never Captured" /></Reveal>
