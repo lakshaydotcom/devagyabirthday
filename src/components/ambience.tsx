@@ -1,12 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import songAsset from "@/assets/Chahun_Main_Ya_Naa_Aashiqui_2_320_Kbps.mp3.asset.json";
 
-// Background song — suggested Arijit Singh tracks that suit this website's
-// warm, nostalgic mood: "Kabira (Encore)" from Yeh Jawaani Hai Deewani,
-// "Phir Le Aya Dil" (Reprise), "Tum Hi Ho", or "Tera Yaar Hoon Main".
-// Copyrighted tracks can't be hosted here — drop your own direct .mp3 URL
-// (e.g. an uploaded file, S3, or a signed CDN link) into SONG_URL below.
-// A gentle royalty-free instrumental is used as a working placeholder.
-const SONG_URL = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3";
+// Background song — "Chahun Main Ya Naa" by Arijit Singh (Aashiqui 2).
+// A romantic, nostalgic track that matches this website's warm, emotional mood.
+// Replace the imported asset below if you'd like a different song later.
+const SONG_URL = songAsset.url;
 
 export function MusicToggle() {
   const [playing, setPlaying] = useState(false);
