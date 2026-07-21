@@ -263,9 +263,10 @@ function BirthdayPage() {
   };
 
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-screen pb-28 sm:pb-32">
       <Particles />
       <MusicToggle />
+      <BackToTop />
 
       {/* HERO */}
       <section ref={heroRef} className="relative z-10 flex min-h-[100svh] items-center justify-center px-5 py-20 text-center">
