@@ -221,6 +221,34 @@ function ConfirmWhatsAppModal({ open, onCancel }: { open: boolean; onCancel: () 
   );
 }
 
+function BackToTop() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 500);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <motion.button
+      onClick={scrollToTop}
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.8, pointerEvents: visible ? "auto" : "none" }}
+      transition={{ duration: 0.3 }}
+      aria-label="Back to top"
+      className="glass fixed bottom-5 left-5 z-50 grid h-12 w-12 place-items-center rounded-full transition-transform hover:scale-110 active:scale-95"
+    >
+      <span className="text-lg">↑</span>
+    </motion.button>
+  );
+}
+
 function BirthdayPage() {
   const [started, setStarted] = useState(false);
   const [callModalOpen, setCallModalOpen] = useState(false);
@@ -235,9 +263,10 @@ function BirthdayPage() {
   };
 
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-screen pb-28 sm:pb-32">
       <Particles />
       <MusicToggle />
+      <BackToTop />
 
       {/* HERO */}
       <section ref={heroRef} className="relative z-10 flex min-h-[100svh] items-center justify-center px-5 py-20 text-center">
@@ -465,6 +494,29 @@ function BirthdayPage() {
               </p>
             </div>
           </GlassCard>
+        </Reveal>
+        <Reveal delay={0.2}>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {[
+              {
+                q: "You once called me the most irritating person you know.",
+                a: "I took it as a compliment. 'Most' means I won something, right? 🏆",
+              },
+              {
+                q: "How did you finish a 3-hour NEET paper so calmly?",
+                a: "Years of practice ignoring my texts prepared you for anything. 😌",
+              },
+            ].map((joke, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -4, rotate: i % 2 ? 1 : -1 }}
+                className="glass rounded-2xl p-5 text-center"
+              >
+                <p className="font-medium text-[color:var(--foreground)]">{joke.q}</p>
+                <p className="mt-2 text-[color:var(--muted-foreground)]">{joke.a}</p>
+              </motion.div>
+            ))}
+          </div>
         </Reveal>
       </Section>
 
