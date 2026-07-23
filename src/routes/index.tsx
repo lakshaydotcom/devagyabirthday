@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useInView, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
 import { forwardRef, useEffect, useRef, useState, type ReactNode } from "react";
 import confetti from "canvas-confetti";
 import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
@@ -875,15 +875,14 @@ function GallerySection() {
 
 function MemoryAndSorrySection() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
   const [opened, setOpened] = useState(false);
+  const [continued, setContinued] = useState(false);
 
-  useEffect(() => {
-    if (inView && !opened) {
-      setOpened(true);
-      setTimeout(() => heartConfetti(), 600);
-    }
-  }, [inView, opened]);
+  const handleOpen = () => {
+    if (opened) return;
+    setOpened(true);
+    setTimeout(() => heartConfetti(), 500);
+  };
 
   return (
     <Section id="sorry" ref={ref}>
@@ -892,64 +891,93 @@ function MemoryAndSorrySection() {
       </Reveal>
 
       <Reveal delay={0.1}>
-        <GlassCard className="relative overflow-hidden">
-          <div aria-hidden className="pointer-events-none absolute -right-4 -top-4 text-8xl opacity-20">🙏</div>
-          <div className="relative space-y-6 text-lg leading-relaxed text-[color:var(--foreground)]/85 sm:text-xl">
-            <p>
-              There are a few things I have carried in my heart for too long, and I think you deserve to read them.
-            </p>
-            <p>
-              I am genuinely sorry for every stupid dare I gave you during Truth and Dare — especially the ones where I forced you to complete my notebooks. That was never fair, and looking back, I can only imagine how annoying it must have been. I confused friendship with convenience, and I regret it.
-            </p>
-            <p>
-              I am also sorry for disturbing you over the lamest reasons. I realize now how many of my messages were unnecessary, how many calls could have waited, and how often I took your patience for granted.
-            </p>
-          </div>
-        </GlassCard>
-      </Reveal>
+        <motion.div layout className="mx-auto max-w-3xl">
+          <GlassCard className="relative overflow-hidden">
+            <div aria-hidden className="pointer-events-none absolute -right-3 -top-3 text-6xl opacity-20 sm:text-8xl">🙏</div>
 
-      <Reveal delay={0.2}>
-        <div className="mt-8 grid gap-5 sm:grid-cols-2">
-          <motion.div
-            whileHover={{ y: -5 }}
-            className="glass rounded-3xl p-6 text-center"
-          >
-            <div className="mb-3 text-4xl">📓</div>
-            <p className="font-medium text-[color:var(--foreground)]">For the notebook dares</p>
-            <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">I made fun out of your effort. That was wrong, and I am sorry.</p>
-          </motion.div>
+            {!opened ? (
+              <motion.div layout className="relative flex flex-col items-center gap-4 py-4 text-center sm:py-6">
+                <p className="text-base leading-relaxed text-[color:var(--foreground)]/80 sm:text-lg">
+                  There are a few things I have carried in my heart for too long. If you have a moment, I would love for you to read them.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleOpen}
+                  className="rounded-full bg-[color:var(--rose)] px-6 py-3 text-sm font-medium text-white shadow-[var(--shadow-glow)] transition-transform active:scale-95 sm:text-base"
+                >
+                  Open my heart 🤍
+                </button>
+              </motion.div>
+            ) : (
+              <AnimatePresence>
+                <motion.div
+                  key="letter"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="relative space-y-5 text-base leading-relaxed text-[color:var(--foreground)]/85 sm:space-y-6 sm:text-lg"
+                >
+                  <p>
+                    I am genuinely sorry for every stupid dare I gave you during Truth and Dare — especially the ones where I forced you to complete my notebooks. That was never fair, and I regret it.
+                  </p>
+                  <p>
+                    I am also sorry for disturbing you over the lamest reasons. So many messages were unnecessary, so many calls could have waited, and I took your patience for granted.
+                  </p>
 
-          <motion.div
-            whileHover={{ y: -5 }}
-            className="glass rounded-3xl p-6 text-center"
-          >
-            <div className="mb-3 text-4xl">🕊️</div>
-            <p className="font-medium text-[color:var(--foreground)]">For every pointless disturbance</p>
-            <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">You deserved peace, and I often forgot that.</p>
-          </motion.div>
-        </div>
-      </Reveal>
+                  <div className="grid gap-4 pt-2 sm:grid-cols-2">
+                    <div className="glass rounded-2xl p-4 text-center sm:p-5">
+                      <div className="mb-2 text-3xl sm:text-4xl">📓</div>
+                      <p className="text-sm font-medium sm:text-base">For the notebook dares</p>
+                      <p className="mt-1 text-xs text-[color:var(--muted-foreground)] sm:text-sm">I made fun out of your effort. That was wrong.</p>
+                    </div>
+                    <div className="glass rounded-2xl p-4 text-center sm:p-5">
+                      <div className="mb-2 text-3xl sm:text-4xl">🕊️</div>
+                      <p className="text-sm font-medium sm:text-base">For every pointless disturbance</p>
+                      <p className="mt-1 text-xs text-[color:var(--muted-foreground)] sm:text-sm">You deserved peace, and I often forgot that.</p>
+                    </div>
+                  </div>
 
-      <Reveal delay={0.3}>
-        <div className="mt-10 text-center">
-          <GlassCard className="mx-auto max-w-2xl">
-            <p className="font-[family-name:var(--font-script)] text-2xl leading-relaxed text-[color:var(--rose)] sm:text-3xl">
-              "If you ever find it in your heart, I would be truly grateful if you could unblock me. No pressure, no expectations — just a honest wish to stay connected."
-            </p>
+                  <div className="pt-2 text-center">
+                    <p className="font-[family-name:var(--font-script)] text-xl leading-relaxed text-[color:var(--rose)] sm:text-2xl">
+                      "If you ever find it in your heart, I would be truly grateful if you could unblock me. No pressure, no expectations — just an honest wish to stay connected."
+                    </p>
+                  </div>
+
+                  {!continued && (
+                    <div className="flex justify-center pt-2">
+                      <button
+                        type="button"
+                        onClick={() => setContinued(true)}
+                        className="rounded-full border border-[color:var(--border)] bg-white/60 px-5 py-2.5 text-sm font-medium text-[color:var(--foreground)] backdrop-blur transition-transform active:scale-95"
+                      >
+                        Continue the journey →
+                      </button>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+            )}
           </GlassCard>
-        </div>
+        </motion.div>
       </Reveal>
 
-      <Reveal delay={0.4}>
-        <div className="mt-10 text-center">
-          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-[color:var(--foreground)]/85 sm:text-xl">
-            Above everything, I hope you remember me as a good friend — someone who cared, even if he did not always show it the right way. No matter where life takes you, a part of me will always root for you.
-          </p>
-          <p className="mt-4 font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)] sm:text-3xl">
-            Thank you for being you, Devagya. 🤍
-          </p>
-        </div>
-      </Reveal>
+      <AnimatePresence>
+        {continued && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mt-10 text-center"
+          >
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-[color:var(--foreground)]/85 sm:text-lg">
+              Above everything, I hope you remember me as a good friend — someone who cared, even if he did not always show it the right way. No matter where life takes you, a part of me will always root for you.
+            </p>
+            <p className="mt-4 font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)] sm:text-3xl">
+              Thank you for being you, Devagya. 🤍
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Section>
   );
 }
