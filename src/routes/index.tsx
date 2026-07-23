@@ -582,6 +582,9 @@ function BirthdayPage() {
       {/* SECTION 8: GALLERY */}
       <GallerySection />
 
+      {/* SECTION 9: MEMORY & SORRY */}
+      <MemoryAndSorrySection />
+
       {/* FINAL: LETTER */}
       <FinalSection />
 
@@ -865,6 +868,87 @@ function GallerySection() {
         <p className="mx-auto mt-8 max-w-2xl text-center text-[color:var(--muted-foreground)]">
           A few real frames from your big day — moments that already mean the world.
         </p>
+      </Reveal>
+    </Section>
+  );
+}
+
+function MemoryAndSorrySection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const [opened, setOpened] = useState(false);
+
+  useEffect(() => {
+    if (inView && !opened) {
+      setOpened(true);
+      setTimeout(() => heartConfetti(), 600);
+    }
+  }, [inView, opened]);
+
+  return (
+    <Section id="sorry" ref={ref}>
+      <Reveal>
+        <SectionTitle kicker="from my heart" title="Things I Never Said Enough" />
+      </Reveal>
+
+      <Reveal delay={0.1}>
+        <GlassCard className="relative overflow-hidden">
+          <div aria-hidden className="pointer-events-none absolute -right-4 -top-4 text-8xl opacity-20">🙏</div>
+          <div className="relative space-y-6 text-lg leading-relaxed text-[color:var(--foreground)]/85 sm:text-xl">
+            <p>
+              There are a few things I have carried in my heart for too long, and I think you deserve to read them.
+            </p>
+            <p>
+              I am genuinely sorry for every stupid dare I gave you during Truth and Dare — especially the ones where I forced you to complete my notebooks. That was never fair, and looking back, I can only imagine how annoying it must have been. I confused friendship with convenience, and I regret it.
+            </p>
+            <p>
+              I am also sorry for disturbing you over the lamest reasons. I realize now how many of my messages were unnecessary, how many calls could have waited, and how often I took your patience for granted.
+            </p>
+          </div>
+        </GlassCard>
+      </Reveal>
+
+      <Reveal delay={0.2}>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          <motion.div
+            whileHover={{ y: -5 }}
+            className="glass rounded-3xl p-6 text-center"
+          >
+            <div className="mb-3 text-4xl">📓</div>
+            <p className="font-medium text-[color:var(--foreground)]">For the notebook dares</p>
+            <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">I made fun out of your effort. That was wrong, and I am sorry.</p>
+          </motion.div>
+
+          <motion.div
+            whileHover={{ y: -5 }}
+            className="glass rounded-3xl p-6 text-center"
+          >
+            <div className="mb-3 text-4xl">🕊️</div>
+            <p className="font-medium text-[color:var(--foreground)]">For every pointless disturbance</p>
+            <p className="mt-2 text-sm text-[color:var(--muted-foreground)]">You deserved peace, and I often forgot that.</p>
+          </motion.div>
+        </div>
+      </Reveal>
+
+      <Reveal delay={0.3}>
+        <div className="mt-10 text-center">
+          <GlassCard className="mx-auto max-w-2xl">
+            <p className="font-[family-name:var(--font-script)] text-2xl leading-relaxed text-[color:var(--rose)] sm:text-3xl">
+              "If you ever find it in your heart, I would be truly grateful if you could unblock me. No pressure, no expectations — just a honest wish to stay connected."
+            </p>
+          </GlassCard>
+        </div>
+      </Reveal>
+
+      <Reveal delay={0.4}>
+        <div className="mt-10 text-center">
+          <p className="mx-auto max-w-2xl text-lg leading-relaxed text-[color:var(--foreground)]/85 sm:text-xl">
+            Above everything, I hope you remember me as a good friend — someone who cared, even if he did not always show it the right way. No matter where life takes you, a part of me will always root for you.
+          </p>
+          <p className="mt-4 font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)] sm:text-3xl">
+            Thank you for being you, Devagya. 🤍
+          </p>
+        </div>
       </Reveal>
     </Section>
   );
