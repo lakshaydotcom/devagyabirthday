@@ -5,9 +5,7 @@ import confetti from "canvas-confetti";
 import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
 import { phone } from "@/lib/phone";
 
-import celebrateTogether from "@/assets/celebrate-together.jpg";
 import devagyaPortrait from "@/assets/devagya-portrait.png.asset.json";
-import devagyaLakshay from "@/assets/devagya-lakshay.png.asset.json";
 import devagyaFamily from "@/assets/devagya-family.jpeg.asset.json";
 
 export const Route = createFileRoute("/")({
