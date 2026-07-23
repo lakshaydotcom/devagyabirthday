@@ -4,7 +4,7 @@ import { forwardRef, useEffect, useRef, useState, type ReactNode } from "react";
 import confetti from "canvas-confetti";
 import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
 import { phone } from "@/lib/phone";
-import neetScorecard from "@/assets/NEET_UG_-_2026.pdf.asset.json";
+
 import celebrateTogether from "@/assets/celebrate-together.jpg";
 import devagyaPortrait from "@/assets/devagya-portrait.png.asset.json";
 import devagyaLakshay from "@/assets/devagya-lakshay.png.asset.json";
@@ -693,20 +693,10 @@ function NeetResultSection() {
       </Reveal>
 
       <Reveal delay={0.5}>
-        <div className="mt-10 flex flex-col items-center gap-4 text-center">
+        <div className="mt-10 text-center">
           <p className="font-[family-name:var(--font-script)] text-2xl text-[color:var(--rose)] sm:text-3xl">
             "The white coat is no longer a dream. It's your future."
           </p>
-          <a
-            href={neetScorecard.url}
-            download="NEET_UG_-_2026_Devagya.pdf"
-            onClick={() => fireConfetti({ particleCount: 60, spread: 80 })}
-            className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-base font-medium text-white shadow-lg transition-transform hover:scale-105 active:scale-95"
-            style={{ background: "var(--gradient-rose)", boxShadow: "0 20px 50px -15px oklch(0.7 0.18 10 / 0.6)" }}
-          >
-            <span aria-hidden>📄</span> Download Scorecard
-          </a>
-          <p className="text-xs text-[color:var(--muted-foreground)]">Roll No. 2317101024 · Result declared 16 July 2026</p>
         </div>
       </Reveal>
     </Section>
