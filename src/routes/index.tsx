@@ -499,10 +499,6 @@ function BirthdayPage() {
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {[
               {
-                q: "You once called me the most irritating person you know.",
-                a: "I took it as a compliment. 'Most' means I won something, right? 🏆",
-              },
-              {
                 q: "How did you finish a 3-hour NEET paper so calmly?",
                 a: "Years of practice ignoring my texts prepared you for anything. 😌",
               },
