@@ -582,6 +582,9 @@ function BirthdayPage() {
       {/* SECTION 8: GALLERY */}
       <GallerySection />
 
+      {/* SECTION 9: MEMORY & SORRY */}
+      <MemoryAndSorrySection />
+
       {/* FINAL: LETTER */}
       <FinalSection />
 
