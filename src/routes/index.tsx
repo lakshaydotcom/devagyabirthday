@@ -804,25 +804,12 @@ function FinalSection() {
 }
 
 function GallerySection() {
-  const tiles = [
-    { emoji: "📸", label: "Add a photo" },
-    { emoji: "🎂", label: "Her birthday" },
-    { emoji: "🩺", label: "White coat day" },
-    { emoji: "☕", label: "First coffee together" },
-    { emoji: "🌇", label: "That long-awaited walk" },
-  ];
-
   const photos = [
     {
       src: devagyaPortrait.url,
       alt: "Devagya wearing a bright safa and marigold garland on her big day",
       caption: "the day everything paid off",
       span: "sm:col-span-2 sm:row-span-2",
-    },
-    {
-      src: devagyaLakshay.url,
-      alt: "Devagya and Lakshay together after her felicitation",
-      caption: "us — finally in one frame",
     },
     {
       src: devagyaFamily.url,
@@ -878,79 +865,9 @@ function GallerySection() {
 
       <Reveal delay={0.15}>
         <p className="mx-auto mt-8 max-w-2xl text-center text-[color:var(--muted-foreground)]">
-          A few real frames from your big day — and below, the one I imagined for us,
-          waiting patiently to become real.
+          A few real frames from your big day — moments that already mean the world.
         </p>
       </Reveal>
-
-
-      <Reveal delay={0.1}>
-        <div className="glass-strong group relative mx-auto overflow-hidden rounded-[2rem] p-3 sm:p-4">
-          <div className="relative overflow-hidden rounded-[1.5rem]">
-            <img
-              src={celebrateTogether}
-              alt="An illustration of Lakshay and Devagya celebrating together under a pastel sunset sky"
-              width={1280}
-              height={896}
-              loading="lazy"
-              className="h-auto w-full transition-transform duration-[1200ms] ease-out group-hover:scale-[1.03]"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, transparent 55%, oklch(0.25 0.05 340 / 0.55) 100%)",
-              }}
-            />
-            <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8">
-              <p className="font-[family-name:var(--font-script)] text-2xl text-white/95 drop-shadow sm:text-3xl">
-                one day we will be celebrating
-              </p>
-              <p className="mt-1 text-sm text-white/85 sm:text-base">
-                Us. Together. In a real frame — not just an imagined one.
-              </p>
-            </div>
-            <span
-              aria-hidden
-              className="absolute right-4 top-4 rounded-full bg-white/70 px-3 py-1 text-xs font-medium text-[color:var(--foreground)] backdrop-blur"
-            >
-              soon ✨
-            </span>
-          </div>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.2}>
-        <p className="mx-auto mt-8 max-w-2xl text-center text-[color:var(--muted-foreground)]">
-          We never had a proper photo together — so I imagined one. When we
-          finally click the real one, it takes this spot. Until then, these
-          empty frames are little promises for the memories still to come.
-        </p>
-      </Reveal>
-
-      <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
-        {tiles.map((t, i) => (
-          <Reveal key={t.label} delay={0.05 * i}>
-            <motion.div
-              whileHover={{ y: -4 }}
-              className="glass relative flex aspect-square items-center justify-center rounded-2xl text-center"
-              style={{
-                background:
-                  "linear-gradient(160deg, oklch(1 0 0 / 0.6), oklch(0.94 0.05 320 / 0.55))",
-                border: "1px dashed color-mix(in oklab, var(--rose) 45%, transparent)",
-              }}
-            >
-              <div className="px-3">
-                <div className="mb-2 text-3xl">{t.emoji}</div>
-                <p className="text-xs text-[color:var(--muted-foreground)] sm:text-sm">
-                  {t.label}
-                </p>
-              </div>
-            </motion.div>
-          </Reveal>
-        ))}
-      </div>
     </Section>
   );
 }
