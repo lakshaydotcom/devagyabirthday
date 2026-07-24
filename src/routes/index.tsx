@@ -813,9 +813,19 @@ function GallerySection() {
       span: "sm:col-span-2 sm:row-span-2",
     },
     {
+      src: devagyaPhoto1.url,
+      alt: "A special moment of Devagya",
+      caption: "a smile that says it all",
+    },
+    {
       src: devagyaFamily.url,
       alt: "Devagya being celebrated by family with garlands",
       caption: "surrounded by the people who prayed for this",
+    },
+    {
+      src: devagyaPhoto2.url,
+      alt: "Another cherished frame of Devagya",
+      caption: "a memory to hold onto",
     },
   ];
 
