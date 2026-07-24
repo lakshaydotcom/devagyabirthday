@@ -70,24 +70,41 @@ export function MusicToggle() {
 
   return (
     <>
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+      <div
+        role="group"
+        aria-label="Background music controls"
+        className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2"
+      >
         {open && (
-          <div className="glass-strong flex items-center gap-2 rounded-full px-3 py-2 shadow-lg fade-in">
+          <div
+            id="music-panel"
+            role="region"
+            aria-label="Music player"
+            className="glass-strong flex items-center gap-2 rounded-full px-3 py-2 shadow-lg fade-in"
+          >
             <button
+              type="button"
               onClick={togglePlay}
-              aria-label={playing ? "Pause music" : "Play music"}
-              className="grid h-9 w-9 place-items-center rounded-full bg-white/40 text-base hover:scale-105 transition-transform"
+              aria-label={playing ? "Pause background music" : "Play background music"}
+              aria-pressed={playing}
+              className="grid h-11 w-11 place-items-center rounded-full bg-white/40 text-base transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white/60"
             >
-              {playing ? "❚❚" : "►"}
+              <span aria-hidden>{playing ? "❚❚" : "►"}</span>
             </button>
             <button
+              type="button"
               onClick={toggleMute}
-              aria-label={muted ? "Unmute" : "Mute"}
-              className="grid h-9 w-9 place-items-center rounded-full bg-white/40 text-base hover:scale-105 transition-transform"
+              aria-label={muted ? "Unmute background music" : "Mute background music"}
+              aria-pressed={muted}
+              className="grid h-11 w-11 place-items-center rounded-full bg-white/40 text-base transition-transform hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white/60"
             >
-              {muted || volume === 0 ? "🔇" : volume < 0.4 ? "🔈" : "🔊"}
+              <span aria-hidden>{muted || volume === 0 ? "🔇" : volume < 0.4 ? "🔈" : "🔊"}</span>
             </button>
+            <label className="sr-only" htmlFor="music-volume">
+              Volume
+            </label>
             <input
+              id="music-volume"
               type="range"
               min={0}
               max={1}
@@ -98,22 +115,28 @@ export function MusicToggle() {
                 setVolume(v);
                 if (v > 0 && muted) setMuted(false);
               }}
-              aria-label="Volume"
-              className="h-2 w-28 cursor-pointer accent-rose-400 sm:w-32"
+              aria-label="Music volume"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round((muted ? 0 : volume) * 100)}
+              aria-valuetext={`${Math.round((muted ? 0 : volume) * 100)} percent`}
+              className="h-2 w-28 cursor-pointer accent-rose-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white/60 sm:w-32"
             />
           </div>
         )}
 
         <button
+          type="button"
           onClick={() => {
             setOpen((o) => !o);
             if (autoPlayBlocked) void togglePlay();
           }}
-          aria-label="Music controls"
+          aria-label={open ? "Hide music controls" : "Show music controls"}
           aria-expanded={open}
-          className={`glass relative grid h-12 w-12 place-items-center rounded-full transition-transform hover:scale-110 ${autoPlayBlocked ? "animate-bounce" : ""}`}
+          aria-controls="music-panel"
+          className={`glass relative grid h-12 w-12 place-items-center rounded-full transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white/60 ${autoPlayBlocked ? "animate-bounce" : ""}`}
         >
-          <span className="text-lg">{playing ? "♪" : "♫"}</span>
+          <span aria-hidden className="text-lg">{playing ? "♪" : "♫"}</span>
           <span
             aria-hidden
             className={`pointer-events-none absolute inset-0 rounded-full ${playing && !muted ? "animate-pulse" : ""}`}
@@ -124,11 +147,13 @@ export function MusicToggle() {
 
       {autoPlayBlocked && !open && (
         <button
+          type="button"
           onClick={() => {
             setOpen(true);
             void togglePlay();
           }}
-          className="glass fixed bottom-20 right-5 z-50 max-w-[200px] rounded-2xl px-4 py-2 text-xs font-medium text-rose-700 shadow-lg fade-in"
+          aria-label="Play Devagya's song"
+          className="glass fixed bottom-20 right-5 z-50 max-w-[200px] rounded-2xl px-4 py-2 text-xs font-medium text-rose-700 shadow-lg fade-in focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white/60"
         >
           Tap to play Devagya’s song 🎵
         </button>
