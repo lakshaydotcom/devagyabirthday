@@ -19,7 +19,7 @@ export function MusicToggle() {
     a.loop = true;
     a.volume = 0.35;
     a.preload = "auto";
-    a.playsInline = true;
+    a.setAttribute("playsinline", "");
     audioRef.current = a;
 
     const onPlay = () => setPlaying(true);
