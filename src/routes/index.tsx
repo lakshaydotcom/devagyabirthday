@@ -807,20 +807,10 @@ function FinalSection() {
 function GallerySection() {
   const photos = [
     {
-      src: devagyaPortrait.url,
-      alt: "Devagya wearing a bright safa and marigold garland on her big day",
-      caption: "the day everything paid off",
-      span: "sm:col-span-2 sm:row-span-2",
-    },
-    {
       src: devagyaPhoto1.url,
       alt: "A special moment of Devagya",
       caption: "a smile that says it all",
-    },
-    {
-      src: devagyaFamily.url,
-      alt: "Devagya being celebrated by family with garlands",
-      caption: "surrounded by the people who prayed for this",
+      span: "sm:col-span-2 sm:row-span-2",
     },
     {
       src: devagyaPhoto2.url,
