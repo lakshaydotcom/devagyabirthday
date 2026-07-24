@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { forwardRef, useEffect, useRef, useState, type ReactNode } from "react";
 import confetti from "canvas-confetti";
 import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
