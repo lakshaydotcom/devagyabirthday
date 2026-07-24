@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import songAsset from "@/assets/Chahun_Main_Ya_Naa_Aashiqui_2_320_Kbps.mp3.asset.json";
+import songAsset from "@/assets/background-song.mp3.asset.json";
 
 // Background song — "Chahun Main Ya Naa" by Arijit Singh (Aashiqui 2).
 // A romantic, nostalgic track that matches this website's warm, emotional mood.
