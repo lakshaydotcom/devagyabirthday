@@ -5,8 +5,6 @@ import confetti from "canvas-confetti";
 import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
 import { phone } from "@/lib/phone";
 
-import devagyaPortrait from "@/assets/devagya-portrait.png.asset.json";
-import devagyaFamily from "@/assets/devagya-family.jpeg.asset.json";
 import devagyaPhoto1 from "@/assets/devagya-photo-1.png.asset.json";
 import devagyaPhoto2 from "@/assets/devagya-photo-2.png.asset.json";
 
