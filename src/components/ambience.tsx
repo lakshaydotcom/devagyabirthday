@@ -8,6 +8,9 @@ const SONG_URL = songAsset.url;
 
 export function MusicToggle() {
   const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(false);
+  const [volume, setVolume] = useState(0.35);
+  const [open, setOpen] = useState(false);
   const [autoPlayBlocked, setAutoPlayBlocked] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -16,56 +19,116 @@ export function MusicToggle() {
     a.loop = true;
     a.volume = 0.35;
     a.preload = "auto";
+    a.setAttribute("playsinline", "");
     audioRef.current = a;
 
-    // Attempt autoplay on first load. Browsers may block it until the user interacts.
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+    a.addEventListener("play", onPlay);
+    a.addEventListener("pause", onPause);
+
     const tryAutoPlay = async () => {
       try {
         await a.play();
-        setPlaying(true);
       } catch {
         setAutoPlayBlocked(true);
       }
     };
     void tryAutoPlay();
 
-    return () => { a.pause(); audioRef.current = null; };
+    return () => {
+      a.pause();
+      a.removeEventListener("play", onPlay);
+      a.removeEventListener("pause", onPause);
+      audioRef.current = null;
+    };
   }, []);
 
-  const toggle = async () => {
+  useEffect(() => {
     const a = audioRef.current;
     if (!a) return;
-    if (playing) {
-      a.pause();
-      setPlaying(false);
-    } else {
+    a.volume = volume;
+    a.muted = muted;
+  }, [volume, muted]);
+
+  const togglePlay = async () => {
+    const a = audioRef.current;
+    if (!a) return;
+    if (a.paused) {
       try {
         await a.play();
-        setPlaying(true);
         setAutoPlayBlocked(false);
       } catch {
-        setPlaying(false);
+        /* ignore */
       }
+    } else {
+      a.pause();
     }
   };
 
+  const toggleMute = () => setMuted((m) => !m);
+
   return (
     <>
-      <button
-        onClick={toggle}
-        aria-label={playing ? "Pause music" : "Play music"}
-        className={`glass fixed bottom-5 right-5 z-50 grid h-12 w-12 place-items-center rounded-full transition-transform hover:scale-110 ${autoPlayBlocked ? "animate-bounce" : ""}`}
-      >
-        <span className="text-lg">{playing ? "♪" : "♫"}</span>
-        <span
-          className={`pointer-events-none absolute inset-0 rounded-full ${playing ? "animate-pulse" : ""}`}
-          style={{ boxShadow: playing ? "0 0 30px var(--rose)" : "none" }}
-        />
-      </button>
-      {autoPlayBlocked && (
+      <div className="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2">
+        {open && (
+          <div className="glass-strong flex items-center gap-2 rounded-full px-3 py-2 shadow-lg fade-in">
+            <button
+              onClick={togglePlay}
+              aria-label={playing ? "Pause music" : "Play music"}
+              className="grid h-9 w-9 place-items-center rounded-full bg-white/40 text-base hover:scale-105 transition-transform"
+            >
+              {playing ? "❚❚" : "►"}
+            </button>
+            <button
+              onClick={toggleMute}
+              aria-label={muted ? "Unmute" : "Mute"}
+              className="grid h-9 w-9 place-items-center rounded-full bg-white/40 text-base hover:scale-105 transition-transform"
+            >
+              {muted || volume === 0 ? "🔇" : volume < 0.4 ? "🔈" : "🔊"}
+            </button>
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={muted ? 0 : volume}
+              onChange={(e) => {
+                const v = parseFloat(e.target.value);
+                setVolume(v);
+                if (v > 0 && muted) setMuted(false);
+              }}
+              aria-label="Volume"
+              className="h-2 w-28 cursor-pointer accent-rose-400 sm:w-32"
+            />
+          </div>
+        )}
+
         <button
-          onClick={toggle}
-          className="glass fixed bottom-20 right-5 z-50 max-w-[180px] rounded-2xl px-4 py-2 text-xs font-medium text-rose-700 shadow-lg fade-in"
+          onClick={() => {
+            setOpen((o) => !o);
+            if (autoPlayBlocked) void togglePlay();
+          }}
+          aria-label="Music controls"
+          aria-expanded={open}
+          className={`glass relative grid h-12 w-12 place-items-center rounded-full transition-transform hover:scale-110 ${autoPlayBlocked ? "animate-bounce" : ""}`}
+        >
+          <span className="text-lg">{playing ? "♪" : "♫"}</span>
+          <span
+            aria-hidden
+            className={`pointer-events-none absolute inset-0 rounded-full ${playing && !muted ? "animate-pulse" : ""}`}
+            style={{ boxShadow: playing && !muted ? "0 0 30px var(--rose)" : "none" }}
+          />
+        </button>
+      </div>
+
+      {autoPlayBlocked && !open && (
+        <button
+          onClick={() => {
+            setOpen(true);
+            void togglePlay();
+          }}
+          className="glass fixed bottom-20 right-5 z-50 max-w-[200px] rounded-2xl px-4 py-2 text-xs font-medium text-rose-700 shadow-lg fade-in"
         >
           Tap to play Devagya’s song 🎵
         </button>

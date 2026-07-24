@@ -5,8 +5,6 @@ import confetti from "canvas-confetti";
 import { MusicToggle, Particles, Lanterns } from "@/components/ambience";
 import { phone } from "@/lib/phone";
 
-import devagyaPortrait from "@/assets/devagya-portrait.png.asset.json";
-import devagyaFamily from "@/assets/devagya-family.jpeg.asset.json";
 import devagyaPhoto1 from "@/assets/devagya-photo-1.png.asset.json";
 import devagyaPhoto2 from "@/assets/devagya-photo-2.png.asset.json";
 
@@ -809,20 +807,10 @@ function FinalSection() {
 function GallerySection() {
   const photos = [
     {
-      src: devagyaPortrait.url,
-      alt: "Devagya wearing a bright safa and marigold garland on her big day",
-      caption: "the day everything paid off",
-      span: "sm:col-span-2 sm:row-span-2",
-    },
-    {
       src: devagyaPhoto1.url,
       alt: "A special moment of Devagya",
       caption: "a smile that says it all",
-    },
-    {
-      src: devagyaFamily.url,
-      alt: "Devagya being celebrated by family with garlands",
-      caption: "surrounded by the people who prayed for this",
+      span: "sm:col-span-2 sm:row-span-2",
     },
     {
       src: devagyaPhoto2.url,
